@@ -1,0 +1,9 @@
+# Ignore pyc and ~ files
+*.pyc
+*~
+
+# Ignore following directories
+cache/*
+models/*
+output/*
+.ipynb_checkpoints/*
