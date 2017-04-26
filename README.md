@@ -15,8 +15,7 @@ wget http://embeddings.org/frWac_non_lem_no_postag_no_phrase_200_cbow_cut100.bin
 git clone https://github.com/marekrei/convertvec
 cd convertvec/
 make
-cd ..
-convertvec/convertvec bin2txt frWiki_no_phrase_no_postag_700_cbow_cut100.bin word2vec_fr_200
+./convertvec bin2txt ../frWiki_no_phrase_no_postag_700_cbow_cut100.bin ../word2vec_fr_200
 ```
 
 ## Results
