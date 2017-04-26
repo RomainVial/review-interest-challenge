@@ -4,6 +4,7 @@
 
 # Ignore following directories
 cache/*
+data/*
 models/*
 output/*
 .ipynb_checkpoints/*
