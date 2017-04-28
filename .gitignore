@@ -2,9 +2,15 @@
 *.pyc
 *~
 
-# Ignore following directories
+# Ignore following directories...
 cache/*
 data/*
 models/*
 output/*
 .ipynb_checkpoints/*
+
+# but please keep the folder
+!cache/.gitkeep
+!data/.gitkeep
+!models/.gitkeep
+!output/.gitkeep

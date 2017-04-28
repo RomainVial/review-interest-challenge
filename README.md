@@ -22,10 +22,11 @@ make
 
 On the validation set, be sure to use the 821 seed.
 
-| Model       | Val   | Test  |
-|-------------|:-----:|:-----:|
-| LSTM 64     | 70.57 | 68.62 |
-| biLSTM 32   | 70.95 |   -   |
-| AttLSTM 32  | 70.97 |   -   |
-| AttLSTM 64  | 71.23 |   -   |
-| Avg Ensemble| 72.17 | 69.74 |
+| Model         | Val   | Test  |
+|---------------|:-----:|:-----:|
+| LSTM 64       | 71.93 |   -   |
+| biLSTM 32     | 71.93 |   -   |
+| AttLSTM 64    | 71.84 |   -   |
+| Att biLSTM 64 | 71.71 |   -   |
+| Mean Ensemble | 72.86 |   -   |
+| Best Ensemble | 72.88 | 70.31 |
