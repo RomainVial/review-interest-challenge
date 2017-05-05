@@ -5,22 +5,35 @@ Code for [PriceMinister challenge](https://challengedata.ens.fr/en/challenge/26/
 ## Dependencies
 
 - Keras(2.0.3) with Theano(0.9.0) backend
-- spacy(1.8.0) for tokenization
+- spacy(>=1.8.2) for tokenization and french word vectors
+- scikit-learn(0.18.1) for ROC AUC metric
 
-## Get the pretrained word vectors
+## Get the pretrained word vectors (1.4 GB)
 
 ```
-cd data/
-wget http://embeddings.org/frWac_non_lem_no_postag_no_phrase_200_cbow_cut100.bin
-git clone https://github.com/marekrei/convertvec
-cd convertvec/
-make
-./convertvec bin2txt ../frWiki_no_phrase_no_postag_700_cbow_cut100.bin ../word2vec_fr_200
+sudo python -m spacy download fr
+```
+
+## Unzip the data
+
+```
+unzip data/data.zip -d data/
 ```
 
 ## Results
 
 On the validation set, be sure to use the 821 seed.
+
+### Using 300-dim spacy embedding
+
+| Model                | Val   | Test  |
+|----------------------|:-----:|:-----:|
+| CBOW (C+T+R)         | 70.34 |   -   |
+| LSTM 64 (C+T+R)      | 72.74 |   -   |
+
+* C = content, T = title, R = rating
+
+### Using 200-dim word2vec (old)
 
 | Model         | Val   | Test  |
 |---------------|:-----:|:-----:|

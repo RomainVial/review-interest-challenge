@@ -1,7 +1,6 @@
 from keras import initializers, regularizers, constraints
 from keras.layers import Layer
 import keras.backend as K
-import theano.tensor as T
 
 class Attention(Layer):
     def __init__(self,

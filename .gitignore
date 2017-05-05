@@ -11,6 +11,6 @@ output/*
 
 # but please keep the folder
 !cache/.gitkeep
-!data/.gitkeep
+!data/data.zip
 !models/.gitkeep
 !output/.gitkeep
