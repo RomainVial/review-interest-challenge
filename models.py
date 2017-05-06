@@ -10,6 +10,21 @@ from custom_layers import Attention
 
 import variables
 
+import h5py
+import os
+
+def save_model_without_embedding(model, savefile):
+    model.save_weights('models/temp.h5')
+    with h5py.File('models/temp.h5', 'r+') as fs, h5py.File(savefile, 'w') as fd:
+        fd.attrs['layer_names'] = [l.name.encode('utf8') for l in model.layers if l.name != 'embedding']
+        fd.attrs['backend'] = fs.attrs['backend']
+        fd.attrs['keras_version'] = fs.attrs['keras_version']
+        for key in fs.keys():
+            if key != u'embedding':
+                fs.copy(key, fd)
+        fd.flush()
+    os.remove('models/temp.h5')
+
 def cbow(data, embedding_weights, verbose=True):
     dropout = 0.6
     maxlen = variables.MAX_LEN
@@ -131,8 +146,7 @@ def bilstm(data, embedding_weights, verbose=True):
     lstm = Bidirectional(LSTM(lstm_output,                         
                 dropout=lstm_dropout_u,            
                 recurrent_dropout=lstm_dropout_w,
-                return_sequences=False,
-                name='lstm'))
+                return_sequences=False), name='lstm')
     
     # Inputs
     text = Input(shape=(maxlen,), name='data')
