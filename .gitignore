@@ -5,12 +5,11 @@
 # Ignore following directories...
 cache/*
 data/*
-models/*
+models/old/*
 output/*
 .ipynb_checkpoints/*
 
 # but please keep the folder
 !cache/.gitkeep
 !data/data.zip
-!models/.gitkeep
 !output/.gitkeep

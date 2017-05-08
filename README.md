@@ -28,10 +28,10 @@ On the validation set, be sure to use the 821 seed.
 
 | Model                | Val   | Test  |
 |----------------------|:-----:|:-----:|
-| CBOW (C+T+R)         | 70.34 |   -   |
-| LSTM 64 (C+T+R)      | 72.74 |   -   |
-
-* C = content, T = title, R = rating
+| CBOW                 | 70.34 |   -   |
+| LSTM 64              | 72.74 |   -   |
+| biLSTM 32            | 72.52 |   -   |
+| Average Ensemble     | 73.48 | 70.20 |
 
 ### Using 200-dim word2vec (old)
 

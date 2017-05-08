@@ -188,3 +188,69 @@ def bilstm(data, embedding_weights, verbose=True):
                   data['test']['ratg']]
             
     return model, data_train, data_val, data_test
+
+def attention_lstm(data, embedding_weights, verbose=True):
+    lstm_output = 64
+    lstm_dropout_w = 0.3
+    lstm_dropout_u = 0.3
+    dropout = 0.6
+    maxlen = variables.MAX_LEN
+
+    nb_words, embedding_dim = embedding_weights.shape
+    
+    embedding = Embedding(input_dim=nb_words,             
+                          input_length=maxlen,            
+                          output_dim=embedding_dim,       
+                          mask_zero=True,                 
+                          weights=[embedding_weights],    
+                          trainable=False,
+                          name='embedding')
+    lstm = LSTM(lstm_output,                         
+                dropout=lstm_dropout_u,            
+                recurrent_dropout=lstm_dropout_w,
+                return_sequences=True,
+                name='lstm')
+    attention = Attention()
+    
+    # Inputs
+    text = Input(shape=(maxlen,), name='data')
+    titl = Input(shape=(embedding_dim,), name='title')
+    ratg = Input(shape=(1,), name='rating')
+    
+    # Embedding
+    text_embedding = embedding(text)
+    
+    # LSTM
+    text_lstm = attention(lstm(text_embedding))
+    
+    # Projection
+    titl_p = Dropout(dropout)(titl)
+    titl_p = Dense(lstm_output, name='proj', activation='relu')(titl_p)
+    
+    # Merge
+    m = concatenate([text_lstm, titl_p, ratg])
+    
+    #Output
+    s = Dropout(dropout)(m)
+    s = Dense(32, name='dense', activation='relu')(s)
+    s = Dropout(dropout)(s)
+    s = Dense(1, name='preds', activation='sigmoid')(s)
+    
+    model = Model(inputs=[text,titl,ratg],outputs=[s])
+    
+    if verbose:
+        model.summary()
+    
+    data_train = ([data['train']['text_ids'], 
+                   data['train']['titl_vec'], 
+                   data['train']['ratg']], 
+                  data['train']['y'])
+    data_val =   ([data['val']['text_ids'], 
+                   data['val']['titl_vec'], 
+                   data['val']['ratg']], 
+                  data['val']['y'])
+    data_test =  [data['test']['text_ids'], 
+                  data['test']['titl_vec'], 
+                  data['test']['ratg']]
+            
+    return model, data_train, data_val, data_test
